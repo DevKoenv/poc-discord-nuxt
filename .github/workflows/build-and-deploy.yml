@@ -1,0 +1,52 @@
+name: Build and Deploy
+
+on: 
+  push:
+    branches:
+      - poc-discord-nuxt
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: poc-discord-nuxt
+  
+
+jobs:
+ build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build Docker image
+      run: docker build -t ${{ env.IMAGE_NAME }} .
+
+    - name: Save Docker image
+      run: |
+        docker save ${{ env.IMAGE_NAME }} | gzip > ${{ env.IMAGE_NAME }}.tar.gz
+
+    - name: Transfer Docker image to server
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        port: ${{ secrets.SERVER_PORT }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        passphrase: ${{ secrets.SSH_PASSPHRASE }}
+        source: "${{ env.IMAGE_NAME }}.tar.gz"
+        target: "/tmp/actions/images/"
+
+    - name: Connect to server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        port: ${{ secrets.SERVER_PORT }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        passphrase: ${{ secrets.SSH_PASSPHRASE }}
+        script: |
+          docker load < /tmp/actions/images/${{ env.IMAGE_NAME }}.tar.gz
+          cd /opt/poc-discord
+          docker compose --progress quiet stop nuxt
+          docker compose --progress quiet rm -f nuxt
+          docker compose --progress quiet up -d nuxt
