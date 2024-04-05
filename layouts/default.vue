@@ -4,7 +4,7 @@
   >
     <div class="hidden border-r bg-muted/40 md:block">
       <div
-        class="flex h-full max-h-screen w-[220px] lg:w-[280px] flex-col gap-2 fixed"
+        class="flex h-full max-h-screen w-[220px] lg:w-[280px] flex-col gap-2 sticky"
       >
         <div class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
           <NuxtLink to="/" class="flex items-center gap-2 font-semibold">
