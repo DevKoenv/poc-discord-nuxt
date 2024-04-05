@@ -3,7 +3,7 @@ name: Build and Deploy
 on: 
   push:
     branches:
-      - poc-discord-nuxt
+      - master
   workflow_dispatch:
 
 env:
