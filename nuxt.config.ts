@@ -10,9 +10,9 @@ export default defineNuxtConfig({
   },
 
   components: [
-    { path: '~/components/ui/', pathPrefix: false },
     { path: '~/components/global/', pathPrefix: false },
     { path: '~/components/shared/', pathPrefix: false },
+    { path: '~/components/ui/', pathPrefix: false },
     '~/components',
   ],
 });
