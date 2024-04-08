@@ -1,10 +1,44 @@
 <template>
   <div class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
     <div class="flex items-center">
-      <h1 class="text-lg font-semibold md:text-2xl">Dashboard</h1>
+      <h1 class="text-lg font-semibold md:text-2xl">Admin Logs</h1>
     </div>
     <div class="h-full rounded-lg border border-dashed shadow-sm p-4">
       <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-2">
+          <ToggleGroup
+            class="flex gap-2"
+            variant="outline"
+            v-model="selectedLogTypes"
+          >
+            <ToggleGroupItem
+              v-for="(value, key) in logVariants"
+              :value="key"
+              class="capitalize"
+              type="multiple"
+            >
+              {{ key }}
+            </ToggleGroupItem>
+          </ToggleGroup>
+        </div>
+        <div class="relative">
+          <div
+            class="bg-secondary w-full h-96 overflow-y-scroll rounded-md p-4"
+            ref="logContainer"
+          >
+            <div
+              v-for="log in filteredLogs"
+              :key="log.id"
+              class="flex gap-1"
+              :class="logVariants[log.log_type] || logVariants.default"
+            >
+              <span class="whitespace-nowrap">[{{ log.log_time }}]</span>
+              <span>$</span>
+              <span>{{ log.message }}</span>
+            </div>
+          </div>
+          <Skeleton v-if="!connected" class="absolute inset-0" />
+        </div>
       </div>
     </div>
   </div>
