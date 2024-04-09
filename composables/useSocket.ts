@@ -2,8 +2,6 @@ import { ref, onBeforeMount, onUnmounted } from "vue";
 import { io, Socket } from "socket.io-client";
 
 export const useSocket = () => {
-  const config = useRuntimeConfig();
-  const serverUrl = config.public.backendUrl;
   const socket = ref(io("", { autoConnect: false }));
 
   if (process.client) {

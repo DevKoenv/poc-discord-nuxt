@@ -15,9 +15,7 @@ export default defineNuxtConfig({
   ],
 
   runtimeConfig: {
-    public: {
-      backendUrl: process.env.BACKEND_URL || "http://127.0.0.1:8080",
-    },
+    backendUrl: "", // can be overridden by NUXT_BACKEND_URL environment variable
   },
 
   nitro: {
