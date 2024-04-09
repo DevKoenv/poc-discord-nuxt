@@ -5,88 +5,21 @@
     </div>
     <div class="h-full rounded-lg border border-dashed shadow-sm p-4">
       <div class="flex flex-col gap-4">
+        <div>
+          <p v-for="i in 100" :key="i">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe
+            doloribus odio atque. Ullam dolores a, veritatis laboriosam in
+            nihil! Unde suscipit fugiat iure accusamus doloremque aspernatur
+            quia dolores voluptatum nobis? Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Saepe quam quaerat dignissimos dicta
+            et numquam aliquam iure ex, consectetur quisquam necessitatibus
+            dolorum exercitationem incidunt vel delectus. Dicta explicabo quis
+            fugit!
+          </p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import type { SocketLog } from "~/types/Socket";
-
-const io = useSocket();
-const logVariants = {
-  daemon: "text-primary",
-  default: "text-white",
-  info: "text-blue-500",
-  warning: "text-yellow-500",
-  error: "text-red-500",
-};
-
-const connected = ref(false);
-const logs = ref<SocketLog[]>([]);
-const selectedLogTypes = ref<string[]>([]);
-
-const filteredLogs = computed(() => {
-  if (selectedLogTypes.value.length === 0) {
-    return logs.value;
-  }
-  return logs.value.filter((log) =>
-    selectedLogTypes.value.includes(log.log_type)
-  );
-});
-
-io.on("connect", () => {
-  connected.value = true;
-  logs.value = [
-    ...logs.value,
-    {
-      id: 0,
-      log_time: new Date().toISOString().replace("T", " ").split(".")[0],
-      log_type: "daemon",
-      message: "Connected to server",
-    },
-  ];
-});
-
-io.on("disconnect", () => {
-  connected.value = false;
-  logs.value = [
-    ...logs.value,
-    {
-      id: 0,
-      log_time: new Date().toISOString().replace("T", " ").split(".")[0],
-      log_type: "daemon",
-      message: "Disconnected from server",
-    },
-  ];
-});
-
-io.on("log", (log: SocketLog) => {
-  if (logs.value.length >= 100) {
-    logs.value.shift(); // Remove the oldest log
-  }
-  logs.value = [...logs.value, log]; // Add the new log
-});
-
-const logContainer = ref<HTMLElement | null>(null);
-const shouldScroll = ref(true);
-
-onMounted(() => {
-  const container = logContainer.value;
-  if (container) {
-    container.addEventListener("scroll", () => {
-      shouldScroll.value =
-        container.scrollTop + container.clientHeight === container.scrollHeight;
-    });
-  }
-});
-
-watch(logs, () => {
-  const container = logContainer.value;
-  if (container && shouldScroll.value) {
-    nextTick(() => {
-      container.scrollTop = container.scrollHeight;
-    });
-  }
-});
-</script>
+<script setup lang="ts"></script>
