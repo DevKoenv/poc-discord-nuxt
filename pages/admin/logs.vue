@@ -9,13 +9,12 @@
           <ToggleGroup
             class="flex gap-2"
             variant="outline"
-            v-model="selectedLogTypes"
+                        
           >
             <ToggleGroupItem
               v-for="(value, key) in logVariants"
               :value="key"
               class="capitalize"
-              type="multiple"
             >
               {{ key }}
             </ToggleGroupItem>
