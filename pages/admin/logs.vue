@@ -9,7 +9,8 @@
           <ToggleGroup
             class="flex gap-2"
             variant="outline"
-                        
+            type="multiple"
+            v-model="selectedLogTypes"
           >
             <ToggleGroupItem
               v-for="(value, key) in logVariants"
