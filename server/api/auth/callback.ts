@@ -3,7 +3,7 @@ export default defineEventHandler(async (event) => {
   const code = getRequestURL(event).searchParams.get("code");
 
   if (!code) {
-    return sendRedirect(event, "/auth/login?error=404");
+    return sendRedirect(event, "/auth/login");
   }
 
   try {
@@ -13,6 +13,7 @@ export default defineEventHandler(async (event) => {
         method: "POST",
         body: {
           code,
+          redirect_uri: config.public.discordRedirectUri,
         },
       }
     );
@@ -21,12 +22,13 @@ export default defineEventHandler(async (event) => {
       httpOnly: true,
       path: "/",
       sameSite: "strict",
-      secure: process.env.NODE_ENV === "production",
+      // secure: process.env.NODE_ENV === "production",
     });
 
     return sendRedirect(event, "/");
   } catch (e) {
+    console.error(e);
     deleteCookie(event, "token")
-    return sendRedirect(event, "/auth/login?error=500");
+    return sendRedirect(event, "/auth/login");
   }
 });
