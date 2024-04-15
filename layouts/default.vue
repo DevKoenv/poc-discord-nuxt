@@ -80,7 +80,14 @@
           <DropdownMenu>
             <DropdownMenuTrigger as-child>
               <Button variant="secondary" size="icon" class="rounded-full">
-                <CircleUser class="h-5 w-5" />
+                <Avatar>
+                  <AvatarImage
+                    :src="`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`"
+                  />
+                  <AvatarFallback>
+                    <CircleUser class="h-5 w-5" />
+                  </AvatarFallback>
+                </Avatar>
                 <span class="sr-only">Toggle user menu</span>
               </Button>
             </DropdownMenuTrigger>
@@ -91,26 +98,30 @@
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
 
-              <!-- Admin start -->
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>Admin</DropdownMenuSubTrigger>
-                <DropdownMenuPortal>
-                  <DropdownMenuSubContent>
-                    <DropdownMenuItem
-                      v-for="(item, index) in adminItems"
-                      :key="index"
-                    >
-                      <NuxtLink :to="item.href" class="size-full">{{
-                        item.title
-                      }}</NuxtLink>
-                    </DropdownMenuItem>
-                  </DropdownMenuSubContent>
-                </DropdownMenuPortal>
-              </DropdownMenuSub>
-              <DropdownMenuSeparator />
-              <!-- Admin end -->
+              <div v-if="isAdmin()">
+                <!-- Admin start -->
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger>Admin</DropdownMenuSubTrigger>
+                  <DropdownMenuPortal>
+                    <DropdownMenuSubContent>
+                      <DropdownMenuItem
+                        v-for="(item, index) in adminItems"
+                        :key="index"
+                      >
+                        <NuxtLink :to="item.href" class="size-full">{{
+                          item.title
+                        }}</NuxtLink>
+                      </DropdownMenuItem>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuPortal>
+                </DropdownMenuSub>
+                <DropdownMenuSeparator />
+                <!-- Admin end -->
+              </div>
 
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem class="cursor-pointer" @click="logout">
+                Logout
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
@@ -135,9 +146,9 @@ import {
   Zap,
   TriangleAlert,
   Users,
-  Shield,
-  Cog,
 } from "lucide-vue-next";
+
+const { user, isAdmin, logout } = useAuthStore();
 
 const colorMode = useColorMode();
 

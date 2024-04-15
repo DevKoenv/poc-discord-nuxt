@@ -9,4 +9,9 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+definePageMeta({
+  name: "Admin Dashboard",
+  auth: "admin",
+});
+</script>
