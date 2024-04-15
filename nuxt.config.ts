@@ -15,6 +15,11 @@ export default defineNuxtConfig({
   ],
 
   runtimeConfig: {
+    public: {
+      discordClientId: "", // can be overridden by NUXT_PUBLIC_DISCORD_CLIENT_ID environment variable
+      discordRedirectUri: "", // can be overridden by NUXT_PUBLIC_DISCORD_REDIRECT_URI environment variable
+    },
+
     backendUrl: "", // can be overridden by NUXT_BACKEND_URL environment variable
   },
 

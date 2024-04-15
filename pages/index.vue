@@ -6,7 +6,9 @@
     <div class="h-full rounded-lg border border-dashed shadow-sm p-4">
       <div class="flex flex-col gap-4">
         <div>
-          <p v-for="i in 100" :key="i">
+          <pre>{{ JSON.stringify(user, null, 2) }}</pre>
+
+          <!-- <p v-for="i in 100" :key="i">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe
             doloribus odio atque. Ullam dolores a, veritatis laboriosam in
             nihil! Unde suscipit fugiat iure accusamus doloremque aspernatur
@@ -15,11 +17,17 @@
             et numquam aliquam iure ex, consectetur quisquam necessitatibus
             dolorum exercitationem incidunt vel delectus. Dicta explicabo quis
             fugit!
-          </p>
+          </p> -->
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+definePageMeta({
+  name: "Dashboard",
+});
+
+const { user } = useAuthStore();
+</script>

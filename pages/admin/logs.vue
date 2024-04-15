@@ -45,6 +45,12 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  name: "Admin Logs",
+  // middleware: "admin-only",
+  auth: "admin",
+});
+
 import type { SocketLog } from "~/types/Socket";
 
 const io = useSocket();
