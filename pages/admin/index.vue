@@ -12,7 +12,6 @@
 <script setup lang="ts">
 definePageMeta({
   name: "Admin Dashboard",
-  // middleware: "admin-only",
   auth: "admin",
 });
 </script>

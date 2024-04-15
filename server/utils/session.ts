@@ -9,9 +9,4 @@ export async function getUserFromToken(event: H3Event) {
   const user = await getUser(token);
 
   return user;
-  
-  
-  // if (user) {
-  //   event.context.user = user;
-  // }
 }

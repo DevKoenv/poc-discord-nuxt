@@ -47,7 +47,6 @@
 <script setup lang="ts">
 definePageMeta({
   name: "Admin Logs",
-  // middleware: "admin-only",
   auth: "admin",
 });
 

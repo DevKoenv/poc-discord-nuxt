@@ -22,7 +22,6 @@
 definePageMeta({
   name: "Login",
   layout: false,
-  // middleware: "guest-only",
   auth: "guest",
 });
 
