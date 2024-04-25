@@ -7,6 +7,8 @@ export async function getUser(token: string) {
     headers: {
       Authorization: `Bearer ${token}`,
     },
+  }).catch((error) => {
+    return null;
   });
 
   return user;
