@@ -25,6 +25,7 @@
   "devDependencies": {
     "@nuxtjs/color-mode": "^3.3.3",
     "@nuxtjs/tailwindcss": "^6.11.4",
+    "@pinia/nuxt": "^0.5.1",
     "typescript": "^5.4.3"
   }
 }

@@ -10,3 +10,8 @@ export async function getUserFromToken(event: H3Event) {
 
   return user;
 }
+
+export async function getToken(event: H3Event) {
+  const token = getCookie(event, "token");
+  return token;
+}

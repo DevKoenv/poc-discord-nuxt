@@ -38,19 +38,9 @@
             </SheetContent>
           </Sheet>
           <div class="flex-1">
-            <form>
-              <div class="relative">
-                <Search
-                  class="absolute left-2.5 top-2.5 size-4 text-muted-foreground"
-                />
-                <Input
-                  id="searchInput"
-                  type="search"
-                  placeholder="Search guilds..."
-                  class="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
-                />
-              </div>
-            </form>
+            <div class="w-full md:hidden">
+              <GuildSelector />
+            </div>
           </div>
           
           <Button variant="ghost" size="icon" @click="toggleColorMode()">
@@ -150,18 +140,18 @@ const navigationItems = [
   {
     title: "Alerts",
     icon: TriangleAlert,
-    href: "#",
+    href: "/guilds/:guildId/alerts",
     badge: 6,
   },
   {
     title: "Commands",
     icon: Zap,
-    href: "#",
+    href: "/guilds/:guildId/commands",
   },
   {
     title: "Users",
     icon: Users,
-    href: "#",
+    href: "/guilds/:guildId/users",
   },
   {
     title: "Analytics",
@@ -175,4 +165,7 @@ const adminItems = [
   { title: "Dashboard", href: "/admin" },
   { title: "Logs", href: "/admin/logs" },
 ];
+
+const { fetchGuilds } = useGuilds();
+await fetchGuilds();
 </script>
