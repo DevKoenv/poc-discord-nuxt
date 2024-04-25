@@ -52,30 +52,16 @@
               </div>
             </form>
           </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger as-child>
-              <Button variant="ghost" size="icon">
-                <Moon
-                  class="size-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-                />
-                <Sun
-                  class="absolute size-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
-                />
-                <span class="sr-only">Toggle theme</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem @click="colorMode.preference = 'light'">
-                Light
-              </DropdownMenuItem>
-              <DropdownMenuItem @click="colorMode.preference = 'dark'">
-                Dark
-              </DropdownMenuItem>
-              <DropdownMenuItem @click="colorMode.preference = 'system'">
-                System
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          
+          <Button variant="ghost" size="icon" @click="toggleColorMode()">
+            <Sun
+              class="size-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+            />
+            <Moon
+              class="absolute size-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+            />
+            <span class="sr-only">Toggle theme</span>
+          </Button>
 
           <DropdownMenu>
             <DropdownMenuTrigger as-child>
@@ -151,6 +137,9 @@ import {
 const { user, isAdmin, logout } = useAuthStore();
 
 const colorMode = useColorMode();
+const toggleColorMode = () => {
+  colorMode.value = colorMode.value === "dark" ? "light" : "dark";
+};
 
 const navigationItems = [
   {
