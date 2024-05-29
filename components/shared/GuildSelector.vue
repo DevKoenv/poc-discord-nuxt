@@ -7,11 +7,26 @@
         :aria-expanded="open"
         class="justify-between my-2 w-full"
       >
-        {{
-          selectedGuild
-            ? guilds.find((guild: any) => guild.id === selectedGuild)?.name
-            : "Select guild..."
-        }}
+        <div class="flex items-center">
+          <Avatar v-if="selectedGuild" class="size-6 mr-2">
+            <AvatarImage
+              :src="`https://cdn.discordapp.com/icons/${selectedGuild}/${guilds.find((guild: any) => guild.id === selectedGuild)?.icon}.webp`"
+            />
+            <AvatarFallback>
+              {{
+                guilds
+                  .find((guild: any) => guild.id === selectedGuild)
+                  ?.name.charAt(0)
+                  .toUpperCase()
+              }}
+            </AvatarFallback>
+          </Avatar>
+          {{
+            selectedGuild
+              ? guilds.find((guild: any) => guild.id === selectedGuild)?.name
+              : "Select guild..."
+          }}
+        </div>
         <ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
       </Button>
     </PopoverTrigger>
@@ -37,7 +52,17 @@
                 }
               "
             >
-              {{ guild.name }}
+              <div class="flex items-center">
+                <Avatar class="size-6 mr-2">
+                  <AvatarImage
+                    :src="`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp`"
+                  />
+                  <AvatarFallback>
+                    {{ guild.name.charAt(0).toUpperCase() }}
+                  </AvatarFallback>
+                </Avatar>
+                {{ guild.name }}
+              </div>
               <Check
                 :class="
                   cn(
@@ -59,11 +84,9 @@ import { Check, ChevronsUpDown } from "lucide-vue-next";
 import { cn } from "~/lib/utils";
 
 const open = ref(false);
+const guildStore = useGuilds();
+const { guilds, selectedGuild } = storeToRefs(guildStore);
 
-const { guilds, selectedGuild } = storeToRefs(useGuilds());
-
-// if the route is /guilds/:id, set the selectedGuild to the id
-// else if route is / unset the selectedGuild
 const route = useRoute();
 if (route.path.includes("/guilds/")) {
   selectedGuild.value = route.params.id as string;

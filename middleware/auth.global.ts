@@ -12,7 +12,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     return navigateTo("/auth/login");
   }
 
-  if (to.meta.auth === "admin" && !isAdmin) {
+  if (to.meta.auth === "admin" && !isAdmin()) {
     return navigateTo("/");
   }
 });

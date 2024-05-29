@@ -14,7 +14,7 @@ RUN cd /temp/dev && bun install --frozen-lockfile
 # Since some dependencies might be needed for the build process
 RUN mkdir -p /temp/prod
 COPY package.json bun.lockb /temp/prod/
-RUN cd /temp/prod && bun install --frozen-lockfile
+RUN cd /temp/prod && bun install --frozen-lockfile --production
 
 # Copy node_modules from the temp directory
 # Then copy all (non-ignored) project files into the image
@@ -37,6 +37,9 @@ COPY package.json /usr/src/app/
 # Ensure the container runs as a non-root user
 USER bun
 
+# Set NODE_ENV to production
+ENV NODE_ENV=production
+
 # Expose the port your app runs on
 EXPOSE 3000/tcp
 
@@ -47,4 +50,4 @@ ENV NUXT_HOST=0.0.0.0
 # Adjusted command to directly run the server in production
 # Following Nuxt's recommendation for production deployments
 # Use ENTRYPOINT to ensure the environment variable is evaluated
-ENTRYPOINT ["sh", "-c", "bun run --bun /usr/src/app/.output/server/index.mjs --host $NUXT_HOST"]
+ENTRYPOINT ["bun", "run", "/usr/src/app/.output/server/index.mjs", "--host", "$NUXT_HOST"]

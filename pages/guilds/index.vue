@@ -47,7 +47,7 @@
 import { Server } from "lucide-vue-next";
 
 definePageMeta({
-  name: "Home",
+  name: "Guilds",
 });
 
 const { guilds, selectedGuild } = storeToRefs(useGuilds());
