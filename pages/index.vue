@@ -5,10 +5,12 @@
     </div>
     <div class="h-full rounded-lg border border-dashed shadow-sm p-4">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+        
         <Card
+          v-if="guilds && guilds.length > 0"
           v-for="guild in guilds"
           :key="guild.id"
-          class="flex flex-col justify-between gap-2"
+          class="flex flex-col justify-between min-h-56 gap-2 overflow-hidden break-all"
         >
           <CardHeader class="pt-0 p-4 items-center">
             <Avatar class="size-20">
@@ -23,7 +25,6 @@
           </CardHeader>
           <CardContent class="p-4 pt-0">
             <NuxtLink
-              v-if="guild.botInGuild"
               :to="`/guilds/${guild.id}`"
               class="block text-primary-500 font-semibold"
               @click="selectedGuild = guild.id"
@@ -32,17 +33,11 @@
                 Go to server
               </Button>
             </NuxtLink>
-            <a
-              v-else
-              href="/api/add-bot"
-              class="block text-primary-500 font-semibold"
-            >
-              <Button variant="outline" size="sm" class="w-full font-semibold">
-                Invite bot to server
-              </Button>
-            </a>
           </CardContent>
         </Card>
+
+        <Skeleton v-else v-for="i in 3" class="min-h-56" />
+
       </div>
     </div>
   </div>
@@ -52,8 +47,12 @@
 import { Server } from "lucide-vue-next";
 
 definePageMeta({
-  name: "Index",
+  name: "Home",
 });
 
 const { guilds, selectedGuild } = storeToRefs(useGuilds());
+
+onMounted(() => {
+  selectedGuild.value = "";
+});
 </script>

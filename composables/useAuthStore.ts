@@ -1,12 +1,11 @@
-import { UserRoles } from "~/enums/User";
 import type { User } from "~/types/User";
+import { UserRoles } from "~/types/UserRoles";
 
 export const useAuthStore = () => {
   const user = useState<User>("user", () => null as unknown as User);
 
   const setUser = (newUser: User) => {
     user.value = newUser;
-    user.value.roles = [UserRoles.USER, UserRoles.ADMIN];
     return user;
   };
 
@@ -17,7 +16,7 @@ export const useAuthStore = () => {
 
   const isAdmin = () => {
     if (!user.value) return false;
-    return user.value.roles.includes(UserRoles.ADMIN);
+    return user.value.roles.some(role => role.name === UserRoles.ADMIN);
   };
 
   const login = async (provider: string) => {

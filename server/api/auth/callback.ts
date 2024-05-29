@@ -6,7 +6,6 @@ export default defineEventHandler(async (event) => {
     return sendRedirect(event, "/auth/login");
   }
 
-  try {
     const response = await $fetch<{ token: string }>(
       `${config.backendUrl}/api/auth/token`,
       {
@@ -16,7 +15,16 @@ export default defineEventHandler(async (event) => {
           redirect_uri: config.public.discordRedirectUri,
         },
       }
+    ).catch((e) => {
+      console.error(e);
+      return null;
+    }
     );
+
+    if (!response) {
+      deleteCookie(event, "token")
+      return sendRedirect(event, "/auth/login");
+    }
 
     setCookie(event, "token", response.token, {
       httpOnly: true,
@@ -26,9 +34,4 @@ export default defineEventHandler(async (event) => {
     });
 
     return sendRedirect(event, "/");
-  } catch (e) {
-    console.error(e);
-    deleteCookie(event, "token")
-    return sendRedirect(event, "/auth/login");
-  }
 });

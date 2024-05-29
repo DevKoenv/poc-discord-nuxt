@@ -41,31 +41,32 @@
             <div class="w-full md:hidden">
               <GuildSelector />
             </div>
+
+            <Breadcrumb class="hidden md:block">
+              <BreadcrumbList>
+                <template v-for="(item, index) in breadcrumbs" :key="index">
+                  <BreadcrumbItem>
+                    <BreadcrumbLink :as="NuxtLink" :href="`${item.path}`">
+                      {{ item.name }}
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator
+                    v-if="index < breadcrumbs.length - 1"
+                  />
+                </template>
+              </BreadcrumbList>
+            </Breadcrumb>
           </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger as-child>
-              <Button variant="ghost" size="icon">
-                <Moon
-                  class="size-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-                />
-                <Sun
-                  class="absolute size-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
-                />
-                <span class="sr-only">Toggle theme</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem @click="colorMode.preference = 'light'">
-                Light
-              </DropdownMenuItem>
-              <DropdownMenuItem @click="colorMode.preference = 'dark'">
-                Dark
-              </DropdownMenuItem>
-              <DropdownMenuItem @click="colorMode.preference = 'system'">
-                System
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+
+          <Button variant="ghost" size="icon" @click="toggleColorMode()">
+            <Sun
+              class="size-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+            />
+            <Moon
+              class="absolute size-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+            />
+            <span class="sr-only">Toggle theme</span>
+          </Button>
 
           <DropdownMenu>
             <DropdownMenuTrigger as-child>
@@ -116,7 +117,7 @@
           </DropdownMenu>
         </header>
       </div>
-      <main class="overflow-auto">
+      <main class="overflow-auto flex flex-col flex-1">
         <slot />
       </main>
     </div>
@@ -124,23 +125,29 @@
 </template>
 
 <script setup lang="ts">
+import { NuxtLink } from "#components";
 import {
   CircleUser,
   Home,
-  LineChart,
   Menu,
   Moon,
   Package2,
-  Search,
   Sun,
-  Zap,
-  TriangleAlert,
-  Users,
+  MessageCircleQuestion,
+  Server,
 } from "lucide-vue-next";
 
 const { user, isAdmin, logout } = useAuthStore();
 
+// if user.value is changed, log it
+watch(user, (value) => {
+  console.log(value);
+});
+
 const colorMode = useColorMode();
+const toggleColorMode = () => {
+  colorMode.value = colorMode.value === "dark" ? "light" : "dark";
+};
 
 const navigationItems = [
   {
@@ -149,26 +156,14 @@ const navigationItems = [
     href: "/",
   },
   {
-    title: "Alerts",
-    icon: TriangleAlert,
-    href: "/guilds/:guildId/alerts",
-    badge: 6,
+    title: "Guilds",
+    icon: Server,
+    href: "/guilds",
   },
   {
-    title: "Commands",
-    icon: Zap,
-    href: "/guilds/:guildId/commands",
-  },
-  {
-    title: "Users",
-    icon: Users,
-    href: "/guilds/:guildId/users",
-  },
-  {
-    title: "Analytics",
-    icon: LineChart,
-    href: "about:blank",
-    external: true,
+    title: "Support",
+    icon: MessageCircleQuestion,
+    href: "/support",
   },
 ];
 
@@ -177,6 +172,25 @@ const adminItems = [
   { title: "Logs", href: "/admin/logs" },
 ];
 
-const { fetchGuilds } = useGuilds();
-await fetchGuilds();
+const router = useRouter();
+const route = useRoute();
+
+const breadcrumbs = ref<{ name: string; path: string }[]>([]);
+
+watchEffect(() => {
+  let pathSoFar = "";
+  const pathParts = route.path.split("/").filter(Boolean);
+
+  breadcrumbs.value = pathParts.map((part) => {
+    pathSoFar += `/${part}`;
+    const resolvedRoute = router.resolve({ path: pathSoFar });
+    return { name: resolvedRoute.name?.toString() || part, path: pathSoFar };
+  });
+
+  breadcrumbs.value.unshift({ name: "Home", path: "/" });
+});
+
+const guildStore = useGuilds();
+
+guildStore.fetchGuilds();
 </script>

@@ -1,7 +1,5 @@
-import { UserRoles } from "~/enums/User";
-
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  const { user } = useAuthStore();
+  const { user, isAdmin } = useAuthStore();
 
   if (to.meta.auth === "guest") {
     if (user.value) {
@@ -14,7 +12,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     return navigateTo("/auth/login");
   }
 
-  if (to.meta.auth === "admin" && !user.value.roles.includes(UserRoles.ADMIN)) {
+  if (to.meta.auth === "admin" && !isAdmin()) {
     return navigateTo("/");
   }
 });

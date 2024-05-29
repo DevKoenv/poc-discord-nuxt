@@ -1,13 +1,13 @@
 export const useGuilds = defineStore("guilds", {
   state: () => ({
-    selectedGuild: '',
+    selectedGuild: '' as string,
     guilds: [] as any[],
   }),
   actions: {
     async fetchGuilds() {
       if (!this.guilds.length) {
         try {
-          const data: any[] = await $fetch("/api/user/guilds", {
+          const data = await $fetch<any[]>("/api/users/me/guilds", {
             credentials: "include",
           });
 

@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from "vue";
 import { AvatarRoot } from "radix-vue";
-import { cn } from "@/lib/utils";
+import { cn } from "~/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const avatarVariant = cva(
