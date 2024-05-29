@@ -139,16 +139,8 @@ import {
 
 const { user, isAdmin, logout } = useAuthStore();
 
-// if user.value is changed, log it
-watch(user, (value) => {
-  console.log(value);
-});
-
 const colorMode = useColorMode();
-const toggleColorMode = () => {
-  colorMode.value = colorMode.value === "dark" ? "light" : "dark";
-};
-
+const toggleColorMode = () => (colorMode.preference = (colorMode.value === 'light' ? 'dark' : 'light'))
 const navigationItems = [
   {
     title: "Dashboard",
