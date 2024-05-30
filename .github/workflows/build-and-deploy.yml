@@ -56,4 +56,6 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             cd /opt/poc-discord/
-            docker compose --progress quiet up -d --no-deps --build nuxt
+            docker compose pull nuxt
+            docker compose up -d --no-deps --build nuxt
+            docker images | grep '${{ secrets.REGISTRY_URL }}/${{ repository.url }}' | grep '<none>' | awk '{print $3}' | xargs -r docker rmi
