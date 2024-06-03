@@ -89,6 +89,6 @@ const { guilds, selectedGuild } = storeToRefs(guildStore);
 
 const route = useRoute();
 if (route.path.includes("/guilds/")) {
-  selectedGuild.value = route.params.id as string;
+  selectedGuild.value = route.params.guildId as string;
 }
 </script>
