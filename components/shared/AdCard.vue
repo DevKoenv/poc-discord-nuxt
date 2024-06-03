@@ -1,15 +1,11 @@
 <template>
-  <Card>
+  <Card class="border-primary">
     <CardHeader class="pt-0 p-4">
       <CardTitle>Test Project</CardTitle>
       <CardDescription>
-        This project is a proof-of-concept for the school project.
+        This project is a proof-of-concept for the school project. It is a test
+        project to see how the project will be implemented.
       </CardDescription>
     </CardHeader>
-    <CardContent class="p-4 pt-0">
-      <Button size="sm" class="w-full font-semibold">
-        POC Discord
-      </Button>
-    </CardContent>
   </Card>
 </template>
