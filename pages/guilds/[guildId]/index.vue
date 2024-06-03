@@ -55,9 +55,7 @@
             <TableHeader>
               <TableRow>
                 <TableHead class="w-[150px]"> Command </TableHead>
-                <TableHead class="hidden md:table-cell">
-                  Description
-                </TableHead>
+                <TableHead class="hidden md:table-cell"> Response </TableHead>
                 <TableHead class="text-right">
                   <Button size="sm" disabled> New </Button>
                 </TableHead>
@@ -65,7 +63,7 @@
             </TableHeader>
             <TableBody>
               <TableRow
-                v-if="commands"
+                v-if="commands && commands.length > 0"
                 v-for="command in commands"
                 :key="command.id"
               >
@@ -73,14 +71,17 @@
                   {{ command.trigger }}
                 </TableCell>
                 <TableCell class="hidden md:table-cell">
-                  {{ command.description }}
+                  {{ command.response.content }}
                 </TableCell>
                 <TableCell class="text-right">
                   <Button variant="outline" size="sm"> Edit </Button>
                 </TableCell>
               </TableRow>
-              <TableRow>
-                <TableCell colspan="3" class="text-center text-muted-foreground">
+              <TableRow v-else>
+                <TableCell
+                  colspan="3"
+                  class="text-center text-muted-foreground"
+                >
                   No commands yet... Try making some!
                 </TableCell>
               </TableRow>
@@ -104,5 +105,10 @@ const { data: guild } = useFetch(`/api/guilds/${route.params.guildId}`, {
   credentials: "include",
 });
 
-const commands = ref([]); // TODO: Fetch commands
+const { data: commands } = useFetch<Command[]>(
+  `/api/guilds/${route.params.guildId}/commands`,
+  {
+    credentials: "include",
+  },
+);
 </script>
