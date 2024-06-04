@@ -38,28 +38,57 @@
                 placeholder="Lorem ipsum dolor sit amet consectetur, adipis..."
               />
             </div>
-            <div class="flex flex-col gap-4">
-              <h2 class="text-lg font-semibold">Embeds</h2>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Title</TableHead>
-                    <TableHead class="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow
-                    v-for="(embed, index) in command.response.embeds"
-                    :key="index"
-                  >
-                    <TableCell>{{ embed.title }}</TableCell>
-                    <TableCell class="text-right">
-                      <!-- <Button variant="secondary" @click="editEmbed(index)">Edit</Button>
-                      <Button @click="deleteEmbed(index)">Delete</Button> -->
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
+            <div class="flex flex-col gap-1">
+              <h2 class="block text-lg">Embeds</h2>
+              <Accordion type="multiple" class="overflow-auto">
+                <AccordionItem
+                  v-for="(embed, index) in command.response.embeds"
+                  :key="index"
+                  :value="index.toString()"
+                  class="rounded-md border-b border-input"
+                >
+                  <AccordionTrigger>
+                    <div class="flex">
+                      <Dot /><span>{{ embed.title }}</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent class="flex flex-col gap-4 border-l-2 px-2 border-input overflow-visible">
+                      <div class="flex flex-col gap-1">
+                        <Label class="block text-lg" for="embed-title">
+                          Embed Title
+                        </Label>
+                        <Input
+                          id="embed-title"
+                          v-model="embed.title"
+                          label="Embed Title"
+                          placeholder="Lorem ipsum."
+                        />
+                      </div>
+                      <div class="flex flex-col gap-1">
+                        <Label class="block text-lg" for="embed-description">
+                          Embed Description
+                        </Label>
+                        <Textarea
+                          id="embed-description"
+                          v-model="embed.description"
+                          label="Embed Description"
+                          placeholder="Lorem ipsum dolor sit amet consectetur, adipis..."
+                        />
+                      </div>
+                      <div class="flex flex-col gap-1">
+                        <Label class="block text-lg" for="embed-color">
+                          Embed Color
+                        </Label>
+                        <Input
+                          id="embed-color"
+                          v-model="embed.color"
+                          label="Embed Color"
+                          placeholder="#ffffff"
+                        />
+                      </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </div>
             <div class="flex justify-between">
               <Button variant="secondary" @click="addEmbed">Add Embed</Button>
@@ -136,7 +165,10 @@ import {
   DiscordEmbedFields,
   DiscordEmbedField,
 } from "@discord-message-components/vue";
-import { ChevronLeft } from "lucide-vue-next";
+import {
+  ChevronLeft,
+  Dot,
+} from "lucide-vue-next";
 import type { Command } from "~/types/Command";
 
 definePageMeta({
@@ -158,10 +190,18 @@ const command = ref<Command>({
 });
 
 const addEmbed = () => {
+  if (command.value.response.embeds.length >= 5) {
+    return toast({
+      title: "Embed Limit Reached",
+      description: "You can only add up to 5 embeds.",
+      variant: "destructive",
+    });
+  }
+  
   command.value.response.embeds.push({
-    title: "Embed 1",
-    description: "Desc 1",
-    color: "#fedde5",
+    title: "",
+    description: "",
+    color: "",
     fields: [],
   });
 };
@@ -171,7 +211,7 @@ const createCommand = async () => {
     return toast({
       title: "Command Trigger Required",
       description: "Please provide a command trigger.",
-      variant: "error",
+      variant: "destructive",
     });
   }
 
@@ -182,7 +222,7 @@ const createCommand = async () => {
     return toast({
       title: "Command Content Required",
       description: "Please provide a command content or at least one embed.",
-      variant: "error",
+      variant: "destructive",
     });
   }
 
@@ -198,7 +238,7 @@ const createCommand = async () => {
     return toast({
       title: "Command Creation Failed",
       description: error.value?.data.error,
-      variant: "error",
+      variant: "destructive",
     });
   }
 
