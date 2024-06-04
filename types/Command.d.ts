@@ -1,40 +1,22 @@
-interface Command {
-  id: number;
-  trigger: string;
-  response: Response;
-  interaction: string;
-  guildId: string;
+import type { APIEmbed } from "discord-api-types/v10";
 
+interface ICommand extends Command {
+  id: number;
+  guildId: string;
 }
 
-interface Response {
+interface Command {
+  trigger: string;
+  response: CommandResponse;
+  interaction: string;
+}
+
+interface CommandResponse {
   content: string;
   embeds: Embed[];
   components: Component[];
 }
 
-interface Embed {
-  title: string;
-  description: string;
+interface Embed extends APIEmbed {
   color: string;
-  fields: Field[];
-}
-
-interface Field {
-  name: string;
-  value: string;
-}
-
-interface Component {
-  type: string;
-  style: string;
-  label: string;
-  url: string;
-  emoji: Emoji;
-  disabled: boolean;
-}
-
-interface Emoji {
-  name: string;
-  id: string;
 }

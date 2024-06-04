@@ -50,9 +50,7 @@
                       {{ item.name }}
                     </BreadcrumbLink>
                   </BreadcrumbItem>
-                  <BreadcrumbSeparator
-                    v-if="index < breadcrumbs.length - 1"
-                  />
+                  <BreadcrumbSeparator v-if="index < breadcrumbs.length - 1" />
                 </template>
               </BreadcrumbList>
             </Breadcrumb>
@@ -140,7 +138,9 @@ import {
 const { user, isAdmin, logout } = useAuthStore();
 
 const colorMode = useColorMode();
-const toggleColorMode = () => (colorMode.preference = (colorMode.value === 'light' ? 'dark' : 'light'))
+const toggleColorMode = () =>
+  (colorMode.preference = colorMode.value === "light" ? "dark" : "light");
+
 const navigationItems = [
   {
     title: "Dashboard",

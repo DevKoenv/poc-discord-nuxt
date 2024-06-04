@@ -27,7 +27,6 @@
                 placeholder="example"
               />
             </div>
-
             <div class="flex flex-col gap-1">
               <Label class="block text-lg" for="response">
                 Command Response
@@ -41,28 +40,26 @@
             </div>
             <div class="flex flex-col gap-4">
               <h2 class="text-lg font-semibold">Embeds</h2>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Title</TableHead>
+                    <TableHead class="text-right">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow
                     v-for="(embed, index) in command.response.embeds"
                     :key="index"
                   >
-                    <td>{{ embed.title }}</td>
-                    <td>
-                      <!-- <Button variant="secondary" @click="editEmbed(index)">
-                          Edit
-                        </Button>
-                        <Button @click="deleteEmbed(index)"> Delete </Button> -->
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                    <TableCell>{{ embed.title }}</TableCell>
+                    <TableCell class="text-right">
+                      <!-- <Button variant="secondary" @click="editEmbed(index)">Edit</Button>
+                      <Button @click="deleteEmbed(index)">Delete</Button> -->
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
             </div>
             <div class="flex justify-between">
               <Button variant="secondary" @click="addEmbed">Add Embed</Button>
@@ -70,7 +67,6 @@
             </div>
           </CardContent>
         </Card>
-
         <Card class="overflow-hidden h-full">
           <DiscordMessages class="h-full">
             <DiscordMessage
@@ -79,7 +75,6 @@
             >
               {{ guild.prefix }}{{ command.trigger || "example" }}
             </DiscordMessage>
-
             <DiscordMessage author="POC-Discord" bot>
               <template #interactions>
                 <DiscordInteraction
@@ -89,10 +84,7 @@
                   {{ guild.prefix }}{{ command.trigger || "example" }}
                 </DiscordInteraction>
               </template>
-
-              <DiscordMarkdown>
-                {{ command.response.content }}
-              </DiscordMarkdown>
+              <DiscordMarkdown>{{ command.response.content }}</DiscordMarkdown>
               <template #embeds>
                 <DiscordEmbed
                   v-for="(embed, index) in command.response.embeds"

@@ -1,9 +1,9 @@
 export default defineEventHandler(async (event): Promise<any> => {
   const config = useRuntimeConfig();
 
-  const { id } = getRouterParams(event);
+  const { guildId } = getRouterParams(event);
 
-  const commands = await $fetch<Command[]>(`${config.backendUrl}/api/guilds/${id}/commands`, {
+  const commands = await $fetch<Command[]>(`${config.backendUrl}/api/guilds/${guildId}/commands`, {
     headers: {
       Authorization: `Bearer ${event.context.token}`,
     },

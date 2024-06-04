@@ -6,7 +6,7 @@ export interface User {
   id: string;
   username: string;
   avatar: string;
-  global_name: string;
+  globalName: string;
   email: string;
   roles: Roles[];
 }
