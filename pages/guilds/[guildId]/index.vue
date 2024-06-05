@@ -51,13 +51,15 @@
       </div>
       <div class="col-span-2">
         <Card class="overflow-hidden">
-          <Table>
+          <Table class="">
             <TableHeader>
               <TableRow>
                 <TableHead class="w-[150px]"> Command </TableHead>
                 <TableHead class="hidden md:table-cell"> Response </TableHead>
                 <TableHead class="text-right">
-                  <Button size="sm" disabled> New </Button>
+                  <NuxtLink :to="`/guilds/${route.params.guildId}/commands`">
+                    <Button size="sm"> New </Button>
+                  </NuxtLink>
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -67,14 +69,14 @@
                 v-for="command in commands"
                 :key="command.id"
               >
-                <TableCell class="capitalize">
+                <TableCell>
                   {{ command.trigger }}
                 </TableCell>
                 <TableCell class="hidden md:table-cell">
                   {{ command.response.content }}
                 </TableCell>
                 <TableCell class="text-right">
-                  <Button variant="outline" size="sm"> Edit </Button>
+                  <Button variant="outline" size="sm" disabled> Edit </Button>
                 </TableCell>
               </TableRow>
               <TableRow v-else>
@@ -109,6 +111,6 @@ const { data: commands } = useFetch<Command[]>(
   `/api/guilds/${route.params.guildId}/commands`,
   {
     credentials: "include",
-  },
+  }
 );
 </script>
