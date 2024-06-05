@@ -76,7 +76,7 @@
                   {{ command.response.content }}
                 </TableCell>
                 <TableCell class="text-right">
-                  <Button variant="outline" size="sm"> Edit </Button>
+                  <Button variant="outline" size="sm" disabled> Edit </Button>
                 </TableCell>
               </TableRow>
               <TableRow v-else>
