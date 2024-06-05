@@ -49,43 +49,48 @@
                 >
                   <AccordionTrigger>
                     <div class="flex">
-                      <Dot /><span>{{ embed.title }}</span>
+                      <Dot /><span>{{ embed.title || `Embed ${index}` }}</span>
                     </div>
                   </AccordionTrigger>
-                  <AccordionContent class="flex flex-col gap-4 border-l-2 px-2 border-input overflow-visible">
-                      <div class="flex flex-col gap-1">
-                        <Label class="block text-lg" for="embed-title">
-                          Embed Title
-                        </Label>
-                        <Input
-                          id="embed-title"
-                          v-model="embed.title"
-                          label="Embed Title"
-                          placeholder="Lorem ipsum."
-                        />
-                      </div>
-                      <div class="flex flex-col gap-1">
-                        <Label class="block text-lg" for="embed-description">
-                          Embed Description
-                        </Label>
-                        <Textarea
-                          id="embed-description"
-                          v-model="embed.description"
-                          label="Embed Description"
-                          placeholder="Lorem ipsum dolor sit amet consectetur, adipis..."
-                        />
-                      </div>
-                      <div class="flex flex-col gap-1">
-                        <Label class="block text-lg" for="embed-color">
-                          Embed Color
-                        </Label>
-                        <Input
-                          id="embed-color"
-                          v-model="embed.color"
-                          label="Embed Color"
-                          placeholder="#ffffff"
-                        />
-                      </div>
+                  <AccordionContent class="flex flex-col gap-4 p-2">
+                    <div class="flex flex-col gap-1">
+                      <Label class="block text-lg" for="embed-title">
+                        Embed Title
+                      </Label>
+                      <Input
+                        id="embed-title"
+                        v-model="embed.title"
+                        label="Embed Title"
+                        placeholder="Lorem ipsum."
+                      />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                      <Label class="block text-lg" for="embed-description">
+                        Embed Description
+                      </Label>
+                      <Textarea
+                        id="embed-description"
+                        v-model="embed.description"
+                        label="Embed Description"
+                        placeholder="Lorem ipsum dolor sit amet consectetur, adipis..."
+                      />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                      <Label class="block text-lg" for="embed-color">
+                        Embed Color
+                      </Label>
+                      <Input
+                        id="embed-color"
+                        v-model="embed.color"
+                        label="Embed Color"
+                        placeholder="#ffffff"
+                      />
+                    </div>
+                    <div class="flex justify-end">
+                      <Button variant="destructive" @click="removeEmbed(index)">
+                        Remove
+                      </Button>
+                    </div>
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
@@ -165,10 +170,7 @@ import {
   DiscordEmbedFields,
   DiscordEmbedField,
 } from "@discord-message-components/vue";
-import {
-  ChevronLeft,
-  Dot,
-} from "lucide-vue-next";
+import { ChevronLeft, Dot } from "lucide-vue-next";
 import type { Command } from "~/types/Command";
 
 definePageMeta({
@@ -197,7 +199,7 @@ const addEmbed = () => {
       variant: "destructive",
     });
   }
-  
+
   command.value.response.embeds.push({
     title: "",
     description: "",
@@ -205,6 +207,16 @@ const addEmbed = () => {
     fields: [],
   });
 };
+
+const removeEmbed = (index: number) => {
+  command.value.response.embeds.splice(index, 1);
+
+  return toast({
+    title: "Embed Removed",
+    description: "You removed an embed from the message.",
+    variant: 'default',
+  })
+}
 
 const createCommand = async () => {
   if (!command.value.trigger) {
@@ -246,7 +258,6 @@ const createCommand = async () => {
     title: "Command Created",
     description:
       "The command has been created successfully. You can now use it in your server.",
-    variant: "success",
   });
 };
 </script>
