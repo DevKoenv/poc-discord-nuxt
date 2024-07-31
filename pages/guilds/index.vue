@@ -35,7 +35,7 @@
           </CardContent>
         </Card>
 
-        <Skeleton v-for="i in 3" v-else class="min-h-56" />
+        <Skeleton v-for="i in 3" v-else :key="i" class="min-h-56" />
       </div>
     </div>
   </div>

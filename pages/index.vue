@@ -5,37 +5,38 @@
     </div>
     <div class="h-full rounded-lg border border-dashed shadow-sm p-4">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
-        <Card
-          v-for="guild in guilds"
-          v-if="guilds && guilds.length > 0"
-          :key="guild.id"
-          class="flex flex-col justify-between min-h-56 gap-2 overflow-hidden break-all"
-        >
-          <CardHeader class="pt-0 p-4 items-center">
-            <Avatar class="size-20">
-              <AvatarImage
-                :src="`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp`"
-              />
-              <AvatarFallback>
-                <Server class="size-8" />
-              </AvatarFallback>
-            </Avatar>
-            <CardTitle>{{ guild.name }}</CardTitle>
-          </CardHeader>
-          <CardContent class="p-4 pt-0">
-            <NuxtLink
-              :to="`/guilds/${guild.id}`"
-              class="block text-primary-500 font-semibold"
-              @click="selectedGuild = guild.id"
-            >
-              <Button size="sm" class="w-full font-semibold">
-                Go to server
-              </Button>
-            </NuxtLink>
-          </CardContent>
-        </Card>
+        <div v-if="guilds && guilds.length > 0">
+          <Card
+            v-for="guild in guilds"
+            :key="guild.id"
+            class="flex flex-col justify-between min-h-56 gap-2 overflow-hidden break-all"
+          >
+            <CardHeader class="pt-0 p-4 items-center">
+              <Avatar class="size-20">
+                <AvatarImage
+                  :src="`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp`"
+                />
+                <AvatarFallback>
+                  <Server class="size-8" />
+                </AvatarFallback>
+              </Avatar>
+              <CardTitle>{{ guild.name }}</CardTitle>
+            </CardHeader>
+            <CardContent class="p-4 pt-0">
+              <NuxtLink
+                :to="`/guilds/${guild.id}`"
+                class="block text-primary-500 font-semibold"
+                @click="selectedGuild = guild.id"
+              >
+                <Button size="sm" class="w-full font-semibold">
+                  Go to server
+                </Button>
+              </NuxtLink>
+            </CardContent>
+          </Card>
+        </div>
 
-        <Skeleton v-for="i in 3" v-else class="min-h-56" />
+        <Skeleton v-for="i in 3" v-else :key="i" class="min-h-56" />
       </div>
     </div>
   </div>

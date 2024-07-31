@@ -4,7 +4,7 @@
       <h1 class="text-lg font-semibold md:text-2xl">Dashboard</h1>
     </div>
     <div
-      v-if="guild"
+      v-if="formattedGuild"
       class="flex flex-col gap-4 rounded-lg border border-dashed p-4 shadow-sm md:grid-cols-2 lg:grid"
     >
       <div class="col-span-1">
@@ -16,16 +16,16 @@
           <CardHeader class="z-10 flex items-center gap-y-4">
             <Avatar class="size-20">
               <AvatarImage
-                :src="`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp`"
+                :src="`https://cdn.discordapp.com/icons/${formattedGuild.id}/${formattedGuild.icon}.webp`"
               />
               <AvatarFallback>
                 <Server class="size-8" />
               </AvatarFallback>
             </Avatar>
-            <CardTitle>{{ guild.name }}</CardTitle>
+            <CardTitle>{{ formattedGuild.name }}</CardTitle>
           </CardHeader>
           <CardContent class="flex flex-col items-center">
-            <span class="font-bold">{{ guild.memberCount | 0 }}</span>
+            <span class="font-bold">{{ formattedGuild.memberCount }}</span>
             <span>Members</span>
           </CardContent>
         </Card>
@@ -63,12 +63,8 @@
                 </TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
-              <TableRow
-                v-for="command in commands"
-                v-if="commands && commands.length > 0"
-                :key="command.id"
-              >
+            <TableBody v-if="commands && commands.length > 0">
+              <TableRow v-for="command in commands" :key="command.id">
                 <TableCell>
                   {{ command.trigger }}
                 </TableCell>
@@ -79,7 +75,9 @@
                   <Button variant="outline" size="sm" disabled> Edit </Button>
                 </TableCell>
               </TableRow>
-              <TableRow v-else>
+            </TableBody>
+            <TableBody v-else>
+              <TableRow>
                 <TableCell
                   colspan="3"
                   class="text-center text-muted-foreground"
@@ -113,4 +111,13 @@ const { data: commands } = useFetch<Command[]>(
     credentials: "include",
   },
 );
+
+const formattedGuild = computed(() => {
+  if (!guild) return null;
+
+  return {
+    ...guild,
+    memberCount: guild.members.length,
+  };
+});
 </script>

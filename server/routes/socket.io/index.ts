@@ -4,7 +4,7 @@ export default defineEventHandler((event) => {
   return proxyRequest(
     event,
     config.backendUrl + reqUrl.pathname + reqUrl.search,
-  ).catch((error) => {
+  ).catch((_error) => {
     return new Response(null, { status: 500 });
   });
 });

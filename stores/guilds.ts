@@ -1,13 +1,13 @@
 export const useGuilds = defineStore("guilds", {
   state: () => ({
     selectedGuild: "" as string,
-    guilds: [] as any[],
+    guilds: [] as Guilds,
   }),
   actions: {
     async fetchGuilds() {
       if (!this.guilds.length) {
         try {
-          const data = await $fetch<any[]>("/api/users/me/guilds", {
+          const data = await $fetch<Guilds>("/api/users/me/guilds", {
             credentials: "include",
           });
 
@@ -19,10 +19,10 @@ export const useGuilds = defineStore("guilds", {
     },
 
     getGuildById(id: string) {
-      return this.guilds.find((guild) => guild.id === id);
+      return this.guilds.find((guild: Guild) => guild.id === id);
     },
 
-    setGuilds(guilds: any[]) {
+    setGuilds(guilds: Guilds) {
       this.guilds = guilds;
     },
     removeGuilds() {
