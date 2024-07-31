@@ -7,10 +7,10 @@
       <div class="flex flex-col gap-4">
         <div class="flex items-center gap-2">
           <ToggleGroup
+            v-model="selectedLogTypes"
             class="flex gap-2"
             variant="outline"
             type="multiple"
-            v-model="selectedLogTypes"
           >
             <ToggleGroupItem
               v-for="(value, key) in logVariants"
@@ -23,8 +23,8 @@
         </div>
         <div class="relative">
           <div
-            class="bg-secondary w-full h-96 overflow-y-scroll rounded-md p-4"
             ref="logContainer"
+            class="bg-secondary w-full h-96 overflow-y-scroll rounded-md p-4"
           >
             <div
               v-for="log in filteredLogs"
@@ -45,12 +45,12 @@
 </template>
 
 <script setup lang="ts">
+import type { SocketLog } from "~/types/Socket";
+
 definePageMeta({
   name: "Admin Logs",
   auth: "admin",
 });
-
-import type { SocketLog } from "~/types/Socket";
 
 const io = useSocket();
 const logVariants = {
@@ -70,7 +70,7 @@ const filteredLogs = computed(() => {
     return logs.value;
   }
   return logs.value.filter((log) =>
-    selectedLogTypes.value.includes(log.log_type)
+    selectedLogTypes.value.includes(log.log_type),
   );
 });
 

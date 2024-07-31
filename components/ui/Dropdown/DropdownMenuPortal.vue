@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { DropdownMenuPortal, type DropdownMenuPortalProps } from 'radix-vue';
+import { DropdownMenuPortal, type DropdownMenuPortalProps } from "radix-vue";
 
 const props = defineProps<DropdownMenuPortalProps>();
 </script>

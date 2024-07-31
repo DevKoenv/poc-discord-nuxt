@@ -22,7 +22,7 @@ export default defineEventHandler(async (event): Promise<any> => {
         Authorization: `Bearer ${event.context.token}`,
       },
       body: JSON.stringify(body),
-    }
+    },
   ).catch((error) => {
     return {
       status: 400,

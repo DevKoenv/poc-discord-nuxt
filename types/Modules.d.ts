@@ -1,1 +1,1 @@
-declare module '@discord-message-components/vue';
+declare module "@discord-message-components/vue";

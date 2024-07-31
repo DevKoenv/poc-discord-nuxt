@@ -1,6 +1,6 @@
 export const useGuilds = defineStore("guilds", {
   state: () => ({
-    selectedGuild: '' as string,
+    selectedGuild: "" as string,
     guilds: [] as any[],
   }),
   actions: {

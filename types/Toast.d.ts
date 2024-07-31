@@ -1,4 +1,4 @@
-import type { ToastRootProps } from 'radix-vue';
+import type { ToastRootProps } from "radix-vue";
 
 type variants = {
   variants: {
@@ -12,10 +12,10 @@ type variants = {
   };
 };
 
-type ToastVariants = VariantProps<variants>
+type ToastVariants = VariantProps<variants>;
 
 export interface ToastProps extends ToastRootProps {
-  class?: HTMLAttributes['class']
-  variant?: ToastVariants['variant']
-  onOpenChange?: ((value: boolean) => void) | undefined
+  class?: HTMLAttributes["class"];
+  variant?: ToastVariants["variant"];
+  onOpenChange?: ((value: boolean) => void) | undefined;
 }

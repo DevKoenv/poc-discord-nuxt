@@ -1,6 +1,6 @@
-import { computed, ref } from 'vue';
-import type { Component, VNode } from 'vue';
-import type { ToastProps } from '~/types/Toast';
+import { computed, ref } from "vue";
+import type { Component, VNode } from "vue";
+import type { ToastProps } from "~/types/Toast";
 
 const TOAST_LIMIT = 99999;
 const TOAST_REMOVE_DELAY = 5000;
@@ -15,10 +15,10 @@ type ToasterToast = ToastProps & {
 };
 
 const actionTypes = {
-  ADD_TOAST: 'ADD_TOAST',
-  UPDATE_TOAST: 'UPDATE_TOAST',
-  DISMISS_TOAST: 'DISMISS_TOAST',
-  REMOVE_TOAST: 'REMOVE_TOAST',
+  ADD_TOAST: "ADD_TOAST",
+  UPDATE_TOAST: "UPDATE_TOAST",
+  DISMISS_TOAST: "DISMISS_TOAST",
+  REMOVE_TOAST: "REMOVE_TOAST",
 } as const;
 
 let count = 0;
@@ -32,20 +32,20 @@ type ActionType = typeof actionTypes;
 
 type Action =
   | {
-      type: ActionType['ADD_TOAST'];
+      type: ActionType["ADD_TOAST"];
       toast: ToasterToast;
     }
   | {
-      type: ActionType['UPDATE_TOAST'];
+      type: ActionType["UPDATE_TOAST"];
       toast: Partial<ToasterToast>;
     }
   | {
-      type: ActionType['DISMISS_TOAST'];
-      toastId?: ToasterToast['id'];
+      type: ActionType["DISMISS_TOAST"];
+      toastId?: ToasterToast["id"];
     }
   | {
-      type: ActionType['REMOVE_TOAST'];
-      toastId?: ToasterToast['id'];
+      type: ActionType["REMOVE_TOAST"];
+      toastId?: ToasterToast["id"];
     };
 
 interface State {
@@ -135,17 +135,19 @@ function dispatch(action: Action) {
   }
 }
 
-type Toast = Omit<ToasterToast, 'id'>;
+type Toast = Omit<ToasterToast, "id">;
 
 function toast(props: Toast) {
   const id = genId();
 
-  const update = (toastProps: ToasterToast) => dispatch({
-    type: actionTypes.UPDATE_TOAST,
-    toast: { ...toastProps, id },
-  });
+  const update = (toastProps: ToasterToast) =>
+    dispatch({
+      type: actionTypes.UPDATE_TOAST,
+      toast: { ...toastProps, id },
+    });
 
-  const dismiss = () => dispatch({ type: actionTypes.DISMISS_TOAST, toastId: id });
+  const dismiss = () =>
+    dispatch({ type: actionTypes.DISMISS_TOAST, toastId: id });
 
   dispatch({
     type: actionTypes.ADD_TOAST,
@@ -170,7 +172,8 @@ function useToast() {
   return {
     toasts: computed(() => state.value.toasts),
     toast,
-    dismiss: (toastId?: string) => dispatch({ type: actionTypes.DISMISS_TOAST, toastId }),
+    dismiss: (toastId?: string) =>
+      dispatch({ type: actionTypes.DISMISS_TOAST, toastId }),
   };
 }
 

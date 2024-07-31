@@ -5,10 +5,9 @@
     </div>
     <div class="h-full rounded-lg border border-dashed shadow-sm p-4">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
-        
         <Card
-          v-if="guilds && guilds.length > 0"
           v-for="guild in guilds"
+          v-if="guilds && guilds.length > 0"
           :key="guild.id"
           class="flex flex-col justify-between min-h-56 gap-2 overflow-hidden break-all"
         >
@@ -36,8 +35,7 @@
           </CardContent>
         </Card>
 
-        <Skeleton v-else v-for="i in 3" class="min-h-56" />
-
+        <Skeleton v-for="i in 3" v-else class="min-h-56" />
       </div>
     </div>
   </div>

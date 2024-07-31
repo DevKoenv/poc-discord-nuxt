@@ -39,9 +39,9 @@
             <div class="p-4">
               <Label for="prefix"> Prefix </Label>
               <Input
+                id="prefix"
                 type="text"
                 name="prefix"
-                id="prefix"
                 placeholder="Enter prefix"
               />
             </div>
@@ -65,8 +65,8 @@
             </TableHeader>
             <TableBody>
               <TableRow
-                v-if="commands && commands.length > 0"
                 v-for="command in commands"
+                v-if="commands && commands.length > 0"
                 :key="command.id"
               >
                 <TableCell>
@@ -111,6 +111,6 @@ const { data: commands } = useFetch<Command[]>(
   `/api/guilds/${route.params.guildId}/commands`,
   {
     credentials: "include",
-  }
+  },
 );
 </script>

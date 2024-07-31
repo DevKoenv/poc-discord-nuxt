@@ -4,9 +4,9 @@ import { io, Socket } from "socket.io-client";
 export const useSocket = () => {
   const socket = ref(io("", { autoConnect: false }));
 
-  if (process.client) {
+  if (import.meta.client) {
     socket.value = io({ autoConnect: false });
-    
+
     onBeforeMount(() => {
       socket.value?.connect();
     });

@@ -1,4 +1,4 @@
-import { H3Event } from "h3";
+import type { H3Event } from "h3";
 
 export async function getToken(event: H3Event) {
   const token = getCookie(event, "token");
@@ -7,7 +7,7 @@ export async function getToken(event: H3Event) {
 
 export async function getUserFromToken(event: H3Event) {
   const token = await getToken(event);
-  
+
   if (!token) {
     return null;
   }

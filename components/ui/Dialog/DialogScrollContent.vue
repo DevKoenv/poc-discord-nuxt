@@ -1,7 +1,7 @@
 <template>
   <DialogPortal>
     <DialogOverlay
-      class="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+      class="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
     >
       <DialogContent
         :class="
@@ -11,13 +11,18 @@
           )
         "
         v-bind="forwarded"
-        @pointer-down-outside="(event) => {
-          const originalEvent = event.detail.originalEvent;
-          const target = originalEvent.target as HTMLElement;
-          if (originalEvent.offsetX > target.clientWidth || originalEvent.offsetY > target.clientHeight) {
-            event.preventDefault();
+        @pointer-down-outside="
+          (event) => {
+            const originalEvent = event.detail.originalEvent;
+            const target = originalEvent.target as HTMLElement;
+            if (
+              originalEvent.offsetX > target.clientWidth ||
+              originalEvent.offsetY > target.clientHeight
+            ) {
+              event.preventDefault();
+            }
           }
-        }"
+        "
       >
         <slot />
 
@@ -33,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { type HTMLAttributes, computed } from 'vue';
+import { type HTMLAttributes, computed } from "vue";
 import {
   DialogClose,
   DialogContent,
@@ -42,11 +47,13 @@ import {
   DialogOverlay,
   DialogPortal,
   useForwardPropsEmits,
-} from 'radix-vue';
-import { X } from 'lucide-vue-next';
-import { cn } from '~/lib/utils';
+} from "radix-vue";
+import { X } from "lucide-vue-next";
+import { cn } from "~/lib/utils";
 
-const props = defineProps<DialogContentProps & { class?: HTMLAttributes['class'] }>();
+const props = defineProps<
+  DialogContentProps & { class?: HTMLAttributes["class"] }
+>();
 const emits = defineEmits<DialogContentEmits>();
 
 const delegatedProps = computed(() => {

@@ -44,7 +44,7 @@
                 (ev) => {
                   if (typeof ev.detail.value === 'string') {
                     selectedGuild = guilds.find(
-                      (guild) => guild.name === ev.detail.value
+                      (guild) => guild.name === ev.detail.value,
                     )?.id;
                     navigateTo(`/guilds/${selectedGuild}`);
                   }
@@ -67,7 +67,7 @@
                 :class="
                   cn(
                     'ml-auto h-4 w-4',
-                    selectedGuild === guild.id ? 'opacity-100' : 'opacity-0'
+                    selectedGuild === guild.id ? 'opacity-100' : 'opacity-0',
                   )
                 "
               />
