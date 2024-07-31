@@ -25,9 +25,16 @@
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
+    "typescript": "^5.4.3",
+    "@types/bun": "latest",
     "@nuxtjs/color-mode": "^3.3.3",
     "@nuxtjs/tailwindcss": "^6.11.4",
-    "@pinia/nuxt": "^0.5.1",
-    "typescript": "^5.4.3"
+    "eslint": "^9.8.0",
+    "prettier": "^3.3.3",
+    "@nuxt/eslint": "^0.4.0",
+    "@vue/typescript-plugin": "^2.0.29",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "@pinia/nuxt": "^0.5.1"
   }
 }
