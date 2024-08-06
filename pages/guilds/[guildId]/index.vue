@@ -4,7 +4,7 @@
       <h1 class="text-lg font-semibold md:text-2xl">Dashboard</h1>
     </div>
     <div
-      v-if="formattedGuild"
+      v-if="guild"
       class="flex flex-col gap-4 rounded-lg border border-dashed p-4 shadow-sm md:grid-cols-2 lg:grid"
     >
       <div class="col-span-1">
@@ -16,16 +16,16 @@
           <CardHeader class="z-10 flex items-center gap-y-4">
             <Avatar class="size-20">
               <AvatarImage
-                :src="`https://cdn.discordapp.com/icons/${formattedGuild.id}/${formattedGuild.icon}.webp`"
+                :src="`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp`"
               />
               <AvatarFallback>
                 <Server class="size-8" />
               </AvatarFallback>
             </Avatar>
-            <CardTitle>{{ formattedGuild.name }}</CardTitle>
+            <CardTitle>{{ guild.name }}</CardTitle>
           </CardHeader>
           <CardContent class="flex flex-col items-center">
-            <span class="font-bold">{{ formattedGuild.memberCount }}</span>
+            <span class="font-bold">0</span>
             <span>Members</span>
           </CardContent>
         </Card>
@@ -94,6 +94,7 @@
 </template>
 <script setup lang="ts">
 import { Server } from "lucide-vue-next";
+import type { Command } from "~/types/Command";
 
 definePageMeta({
   name: `Dashboard`,
@@ -111,13 +112,4 @@ const { data: commands } = useFetch<Command[]>(
     credentials: "include",
   },
 );
-
-const formattedGuild = computed(() => {
-  if (!guild) return null;
-
-  return {
-    ...guild,
-    memberCount: guild.members.length,
-  };
-});
 </script>
