@@ -13,9 +13,9 @@
     <div
       class="flex flex-col gap-4 rounded-lg border border-dashed p-4 shadow-sm"
     >
-      <div class="grid lg:grid-cols-2 gap-4">
-        <Card class="overflow-hidden h-full">
-          <CardContent class="h-full flex flex-col gap-2 p-6">
+      <div class="grid gap-4 lg:grid-cols-2">
+        <Card class="h-full overflow-hidden">
+          <CardContent class="flex h-full flex-col gap-2 p-6">
             <div class="flex flex-col gap-1">
               <Label class="block text-lg" for="trigger">
                 Command Trigger
@@ -101,7 +101,7 @@
             </div>
           </CardContent>
         </Card>
-        <Card class="overflow-hidden h-full">
+        <Card class="h-full overflow-hidden">
           <DiscordMessages class="h-full">
             <DiscordMessage
               :author="user.globalName"
@@ -139,6 +139,7 @@
                     <DiscordEmbedFields v-if="embed.fields">
                       <DiscordEmbedField
                         v-for="field in embed.fields"
+                        :key="field.name"
                         :field-title="field.name"
                         :inline="field.inline"
                       >
@@ -238,7 +239,7 @@ const createCommand = async () => {
     });
   }
 
-  const { data: response, error } = await useFetch(
+  const { error } = await useFetch(
     `/api/guilds/${route.params.guildId}/commands`,
     {
       method: "POST",

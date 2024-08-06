@@ -14,7 +14,7 @@ interface Command {
 interface CommandResponse {
   content: string;
   embeds: Embed[];
-  components: Component[];
+  components: never[]; // TODO: Implement components
 }
 
 interface Embed extends APIEmbed {

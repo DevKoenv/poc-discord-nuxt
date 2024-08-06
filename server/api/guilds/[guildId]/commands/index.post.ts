@@ -1,4 +1,4 @@
-export default defineEventHandler(async (event): Promise<any> => {
+export default defineEventHandler(async (event): Promise<object> => {
   const config = useRuntimeConfig();
 
   const { guildId } = getRouterParams(event);

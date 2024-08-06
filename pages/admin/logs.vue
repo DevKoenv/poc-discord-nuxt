@@ -3,7 +3,7 @@
     <div class="flex items-center">
       <h1 class="text-lg font-semibold md:text-2xl">Admin Logs</h1>
     </div>
-    <div class="h-full rounded-lg border border-dashed shadow-sm p-4">
+    <div class="h-full rounded-lg border border-dashed p-4 shadow-sm">
       <div class="flex flex-col gap-4">
         <div class="flex items-center gap-2">
           <ToggleGroup
@@ -14,6 +14,7 @@
           >
             <ToggleGroupItem
               v-for="(value, key) in logVariants"
+              :key="key"
               :value="key"
               class="capitalize"
             >
@@ -24,7 +25,7 @@
         <div class="relative">
           <div
             ref="logContainer"
-            class="bg-secondary w-full h-96 overflow-y-scroll rounded-md p-4"
+            class="h-96 w-full overflow-y-scroll rounded-md bg-secondary p-4"
           >
             <div
               v-for="log in filteredLogs"

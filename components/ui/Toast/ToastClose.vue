@@ -27,6 +27,6 @@ const delegatedProps = computed(() => {
       )
     "
   >
-    <X class="h-4 w-4" />
+    <X class="size-4" />
   </ToastClose>
 </template>

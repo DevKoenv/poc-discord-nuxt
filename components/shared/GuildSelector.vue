@@ -5,10 +5,10 @@
         variant="outline"
         role="combobox"
         :aria-expanded="open"
-        class="justify-between my-2 w-full"
+        class="my-2 w-full justify-between"
       >
         <div class="flex items-center">
-          <Avatar v-if="selectedGuild" class="size-6 mr-2">
+          <Avatar v-if="selectedGuild" class="mr-2 size-6">
             <AvatarImage
               :src="`https://cdn.discordapp.com/icons/${selectedGuild}/${guilds.find((guild: any) => guild.id === selectedGuild)?.icon}.webp`"
             />
@@ -27,10 +27,10 @@
               : "Select guild..."
           }}
         </div>
-        <ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        <ChevronsUpDown class="ml-2 size-4 shrink-0 opacity-50" />
       </Button>
     </PopoverTrigger>
-    <PopoverContent class="w-[202px] lg:w-[248px] p-0">
+    <PopoverContent class="w-[202px] p-0 lg:w-[248px]">
       <Command>
         <CommandInput class="h-9" placeholder="Search guild..." />
         <CommandEmpty>No guild found.</CommandEmpty>
@@ -53,7 +53,7 @@
               "
             >
               <div class="flex items-center">
-                <Avatar class="size-6 mr-2">
+                <Avatar class="mr-2 size-6">
                   <AvatarImage
                     :src="`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp`"
                   />

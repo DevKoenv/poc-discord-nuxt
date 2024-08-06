@@ -11,13 +11,13 @@ import { cn } from "~/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const avatarVariant = cva(
-  "inline-flex items-center justify-center font-normal text-foreground select-none shrink-0 bg-secondary overflow-hidden",
+  "inline-flex shrink-0 select-none items-center justify-center overflow-hidden bg-secondary font-normal text-foreground",
   {
     variants: {
       size: {
-        sm: "h-10 w-10 text-xs",
-        base: "h-16 w-16 text-2xl",
-        lg: "h-32 w-32 text-5xl",
+        sm: "size-10 text-xs",
+        base: "size-16 text-2xl",
+        lg: "size-32 text-5xl",
       },
       shape: {
         circle: "rounded-full",

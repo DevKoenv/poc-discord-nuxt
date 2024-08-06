@@ -5,7 +5,7 @@
     :external="external"
     :target="(external && '_blank') || '_self'"
     :class="[
-      'max-h-min flex items-center gap-4 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted',
+      'flex max-h-min items-center gap-4 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:bg-muted hover:text-primary',
       $route.path === href && 'bg-secondary text-primary',
     ]"
   >
@@ -13,7 +13,7 @@
     <span>{{ title }}</span>
     <Badge
       v-if="badge"
-      class="ml-auto flex size-5 p-0 shrink-0 items-center justify-center rounded-full"
+      class="ml-auto flex size-5 shrink-0 items-center justify-center rounded-full p-0"
     >
       {{ badge }}
     </Badge>

@@ -1,4 +1,6 @@
-export default defineEventHandler(async (event): Promise<any> => {
+import type { Command } from "~/types/Command";
+
+export default defineEventHandler(async (event): Promise<Command[]> => {
   const config = useRuntimeConfig();
 
   const { guildId, commandId } = getRouterParams(event);

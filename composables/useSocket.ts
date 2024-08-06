@@ -1,5 +1,5 @@
 import { ref, onBeforeMount, onUnmounted } from "vue";
-import { io, Socket } from "socket.io-client";
+import { io } from "socket.io-client";
 
 export const useSocket = () => {
   const socket = ref(io("", { autoConnect: false }));

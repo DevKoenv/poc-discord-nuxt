@@ -10,7 +10,7 @@
   >
     <slot />
     <SelectIcon as-child>
-      <ChevronDown class="w-4 h-4 opacity-50" />
+      <ChevronDown class="size-4 opacity-50" />
     </SelectIcon>
   </SelectTrigger>
 </template>
