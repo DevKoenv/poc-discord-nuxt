@@ -51,6 +51,7 @@ const props = withDefaults(
     }
   >(),
   {
+    class: "",
     variant: "default",
     size: "default",
     disabled: false,

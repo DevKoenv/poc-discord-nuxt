@@ -18,6 +18,7 @@ import { cn } from "~/lib/utils";
 const props = withDefaults(
   defineProps<ComboboxContentProps & { class?: HTMLAttributes["class"] }>(),
   {
+    class: "",
     dismissable: false,
   },
 );

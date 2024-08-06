@@ -47,6 +47,7 @@ defineOptions({
 const props = withDefaults(
   defineProps<SelectContentProps & { class?: HTMLAttributes["class"] }>(),
   {
+    class: "",
     position: "popper",
   },
 );

@@ -28,6 +28,7 @@ import { cn } from "~/lib/utils";
 const props = withDefaults(
   defineProps<DropdownMenuContentProps & { class?: HTMLAttributes["class"] }>(),
   {
+    class: "",
     sideOffset: 4,
   },
 );

@@ -21,6 +21,7 @@ import { cn } from "~/lib/utils";
 const props = withDefaults(
   defineProps<ComboboxRootProps & { class?: HTMLAttributes["class"] }>(),
   {
+    class: "",
     open: true,
     modelValue: "",
   },

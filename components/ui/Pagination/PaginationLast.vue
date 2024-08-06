@@ -8,6 +8,7 @@ import { cn } from "~/lib/utils";
 const props = withDefaults(
   defineProps<PaginationLastProps & { class?: HTMLAttributes["class"] }>(),
   {
+    class: "",
     asChild: true,
   },
 );

@@ -28,6 +28,7 @@ const props = withDefaults(
     colspan?: number;
   }>(),
   {
+    class: "",
     colspan: 1,
   },
 );
