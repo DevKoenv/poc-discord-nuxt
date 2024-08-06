@@ -5,8 +5,8 @@ interface Guild {
   prefix: string;
   language: string;
 
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | string;
+  updatedAt: Date | string;
 
   commands: Command[];
 }
