@@ -30,7 +30,8 @@ export default defineEventHandler(async (event): Promise<object> => {
     };
   });
 
-  if ((response as { status: number }).status === 400) { // TODO: Fix this type assertion
+  // TODO: Fix this type assertion
+  if ((response as { status: number }).status === 400) {
     return new Response(JSON.stringify(response), {
       status: 400,
       headers: {
