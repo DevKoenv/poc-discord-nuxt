@@ -1,4 +1,4 @@
-import type { User } from "~/types/User"
+import type { User } from "~/types/User";
 
 export default defineEventHandler(async (event): Promise<User | null> => {
   const user: User | null = event.context.user;

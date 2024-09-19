@@ -1,20 +1,19 @@
 import type { APIEmbed } from "discord-api-types/v10";
 
-interface ICommand extends Command {
-  id: number;
-  guildId: string;
-}
-
 interface Command {
+  id: number;
   trigger: string;
   response: CommandResponse;
-  interaction: string;
+  interaction: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+  guildId: string;
 }
 
 interface CommandResponse {
   content: string;
   embeds: Embed[];
-  components: Component[];
+  components: never[]; // TODO: Implement components
 }
 
 interface Embed extends APIEmbed {

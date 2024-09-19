@@ -3,17 +3,18 @@
     <div class="flex items-center">
       <h1 class="text-lg font-semibold md:text-2xl">Admin Logs</h1>
     </div>
-    <div class="h-full rounded-lg border border-dashed shadow-sm p-4">
+    <div class="h-full rounded-lg border border-dashed p-4 shadow-sm">
       <div class="flex flex-col gap-4">
         <div class="flex items-center gap-2">
           <ToggleGroup
+            v-model="selectedLogTypes"
             class="flex gap-2"
             variant="outline"
             type="multiple"
-            v-model="selectedLogTypes"
           >
             <ToggleGroupItem
               v-for="(value, key) in logVariants"
+              :key="key"
               :value="key"
               class="capitalize"
             >
@@ -23,8 +24,8 @@
         </div>
         <div class="relative">
           <div
-            class="bg-secondary w-full h-96 overflow-y-scroll rounded-md p-4"
             ref="logContainer"
+            class="h-96 w-full overflow-y-scroll rounded-md bg-secondary p-4"
           >
             <div
               v-for="log in filteredLogs"
@@ -45,12 +46,12 @@
 </template>
 
 <script setup lang="ts">
+import type { SocketLog } from "~/types/Socket";
+
 definePageMeta({
   name: "Admin Logs",
   auth: "admin",
 });
-
-import type { SocketLog } from "~/types/Socket";
 
 const io = useSocket();
 const logVariants = {
@@ -70,7 +71,7 @@ const filteredLogs = computed(() => {
     return logs.value;
   }
   return logs.value.filter((log) =>
-    selectedLogTypes.value.includes(log.log_type)
+    selectedLogTypes.value.includes(log.log_type),
   );
 });
 

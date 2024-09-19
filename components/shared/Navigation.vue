@@ -1,9 +1,9 @@
 <template>
   <nav
-    class="grid items-start gap-1 px-2 text-lg md:text-sm font-medium lg:px-4 mx-[-0.65rem] md:mx-0"
+    class="mx-[-0.65rem] grid items-start gap-1 px-2 text-lg font-medium md:mx-0 md:text-sm lg:px-4"
   >
-    <a href="#" class="md:hidden flex items-center gap-2 text-lg font-semibold">
-      <Package2 class="h-6 w-6" />
+    <a href="#" class="flex items-center gap-2 text-lg font-semibold md:hidden">
+      <Package2 class="size-6" />
       <span class="sr-only">POC Discord</span>
     </a>
 
@@ -11,7 +11,7 @@
       <GuildSelector />
     </div>
 
-    <NavigationLink v-for="item in items" v-bind="item" />
+    <NavigationLink v-for="(item, index) in items" :key="index" v-bind="item" />
   </nav>
 </template>
 <script setup lang="ts">

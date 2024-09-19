@@ -13,9 +13,9 @@
     <div
       class="flex flex-col gap-4 rounded-lg border border-dashed p-4 shadow-sm"
     >
-      <div class="grid lg:grid-cols-2 gap-4">
-        <Card class="overflow-hidden h-full">
-          <CardContent class="h-full flex flex-col gap-2 p-6">
+      <div class="grid gap-4 lg:grid-cols-2">
+        <Card class="h-full overflow-hidden">
+          <CardContent class="flex h-full flex-col gap-2 p-6">
             <div class="flex flex-col gap-1">
               <Label class="block text-lg" for="trigger">
                 Command Trigger
@@ -101,7 +101,7 @@
             </div>
           </CardContent>
         </Card>
-        <Card class="overflow-hidden h-full">
+        <Card class="h-full overflow-hidden">
           <DiscordMessages class="h-full">
             <DiscordMessage
               :author="user.globalName"
@@ -123,13 +123,13 @@
                 <DiscordEmbed
                   v-for="(embed, index) in command.response.embeds"
                   :key="index"
-                  :borderColor="embed.color"
+                  :border-color="embed.color"
                   :timestamp="embed.timestamp"
-                  :authorIcon="embed.author?.icon_url"
-                  :authorName="embed.author?.name"
-                  :authorUrl="embed.author?.url"
-                  :embedTitle="embed.title"
-                  :footerIcon="embed.footer?.icon_url"
+                  :author-icon="embed.author?.icon_url"
+                  :author-name="embed.author?.name"
+                  :author-url="embed.author?.url"
+                  :embed-title="embed.title"
+                  :footer-icon="embed.footer?.icon_url"
                   :image="embed.image"
                   :thumbnail="embed.thumbnail"
                   :url="embed.url"
@@ -139,14 +139,15 @@
                     <DiscordEmbedFields v-if="embed.fields">
                       <DiscordEmbedField
                         v-for="field in embed.fields"
-                        :fieldTitle="field.name"
+                        :key="field.name"
+                        :field-title="field.name"
                         :inline="field.inline"
                       >
                         {{ field.value }}
                       </DiscordEmbedField>
                     </DiscordEmbedFields>
                   </template>
-                  <template #footer v-if="embed.footer">
+                  <template v-if="embed.footer" #footer>
                     {{ embed.footer.text }}
                   </template>
                 </DiscordEmbed>
@@ -214,9 +215,9 @@ const removeEmbed = (index: number) => {
   return toast({
     title: "Embed Removed",
     description: "You removed an embed from the message.",
-    variant: 'default',
-  })
-}
+    variant: "default",
+  });
+};
 
 const createCommand = async () => {
   if (!command.value.trigger) {
@@ -238,12 +239,12 @@ const createCommand = async () => {
     });
   }
 
-  const { data: response, error } = await useFetch(
+  const { error } = await useFetch(
     `/api/guilds/${route.params.guildId}/commands`,
     {
       method: "POST",
       body: JSON.stringify(command.value),
-    }
+    },
   );
 
   if (error.value) {

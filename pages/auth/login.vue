@@ -1,6 +1,6 @@
 <template>
-  <div class="h-screen flex items-center justify-center">
-    <Card class="mx-auto max-w-sm w-full grid gap-6 text-center">
+  <div class="flex h-screen items-center justify-center">
+    <Card class="mx-auto grid w-full max-w-sm gap-6 text-center">
       <CardHeader>
         <CardTitle class="text-2xl"> Login </CardTitle>
         <CardDescription>

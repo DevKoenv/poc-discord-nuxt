@@ -1,4 +1,4 @@
-import { User } from "~/types/User";
+import type { User } from "~/types/User";
 
 const config = useRuntimeConfig();
 
@@ -7,7 +7,7 @@ export async function getUser(token: string) {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  }).catch((error) => {
+  }).catch((_error) => {
     return null;
   });
 

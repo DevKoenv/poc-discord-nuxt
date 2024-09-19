@@ -25,7 +25,7 @@
             <CardTitle>{{ guild.name }}</CardTitle>
           </CardHeader>
           <CardContent class="flex flex-col items-center">
-            <span class="font-bold">{{ guild.memberCount | 0 }}</span>
+            <span class="font-bold">0</span>
             <span>Members</span>
           </CardContent>
         </Card>
@@ -39,9 +39,9 @@
             <div class="p-4">
               <Label for="prefix"> Prefix </Label>
               <Input
+                id="prefix"
                 type="text"
                 name="prefix"
-                id="prefix"
                 placeholder="Enter prefix"
               />
             </div>
@@ -63,12 +63,8 @@
                 </TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
-              <TableRow
-                v-if="commands && commands.length > 0"
-                v-for="command in commands"
-                :key="command.id"
-              >
+            <TableBody v-if="commands && commands.length > 0">
+              <TableRow v-for="command in commands" :key="command.id">
                 <TableCell>
                   {{ command.trigger }}
                 </TableCell>
@@ -79,7 +75,9 @@
                   <Button variant="outline" size="sm" disabled> Edit </Button>
                 </TableCell>
               </TableRow>
-              <TableRow v-else>
+            </TableBody>
+            <TableBody v-else>
+              <TableRow>
                 <TableCell
                   colspan="3"
                   class="text-center text-muted-foreground"
@@ -96,6 +94,7 @@
 </template>
 <script setup lang="ts">
 import { Server } from "lucide-vue-next";
+import type { Command } from "~/types/Command";
 
 definePageMeta({
   name: `Dashboard`,
@@ -111,6 +110,6 @@ const { data: commands } = useFetch<Command[]>(
   `/api/guilds/${route.params.guildId}/commands`,
   {
     credentials: "include",
-  }
+  },
 );
 </script>

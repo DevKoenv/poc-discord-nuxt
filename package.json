@@ -7,7 +7,11 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write .",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@discord-message-components/vue": "^0.2.1",
@@ -25,9 +29,18 @@
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
+    "@eslint/compat": "^1.1.1",
+    "@nuxt/eslint": "^0.4.0",
     "@nuxtjs/color-mode": "^3.3.3",
     "@nuxtjs/tailwindcss": "^6.11.4",
     "@pinia/nuxt": "^0.5.1",
+    "@types/bun": "latest",
+    "@vue/typescript-plugin": "^2.0.29",
+    "eslint": "^9.8.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-tailwindcss": "^3.17.4",
+    "prettier": "^3.3.3",
     "typescript": "^5.4.3"
   }
 }

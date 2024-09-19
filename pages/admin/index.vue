@@ -3,7 +3,7 @@
     <div class="flex items-center">
       <h1 class="text-lg font-semibold md:text-2xl">Admin Dashboard</h1>
     </div>
-    <div class="h-full rounded-lg border border-dashed shadow-sm p-4">
+    <div class="h-full rounded-lg border border-dashed p-4 shadow-sm">
       <div class="flex flex-col gap-4"></div>
     </div>
   </div>

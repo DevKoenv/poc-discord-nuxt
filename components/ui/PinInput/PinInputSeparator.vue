@@ -3,12 +3,12 @@
     <slot>
       <Dot />
     </slot>
-  </primitive>
+  </Primitive>
 </template>
 
 <script setup lang="ts">
-import { Primitive, type PrimitiveProps, useForwardProps } from 'radix-vue';
-import { Dot } from 'lucide-vue-next';
+import { Primitive, type PrimitiveProps, useForwardProps } from "radix-vue";
+import { Dot } from "lucide-vue-next";
 
 const props = defineProps<PrimitiveProps>();
 const forwardedProps = useForwardProps(props);

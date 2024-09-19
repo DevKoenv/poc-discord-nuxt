@@ -16,7 +16,7 @@ export const useAuthStore = () => {
 
   const isAdmin = () => {
     if (!user.value) return false;
-    return user.value.roles.some(role => role.name === UserRoles.ADMIN);
+    return user.value.roles.some((role) => role.name === UserRoles.ADMIN);
   };
 
   const login = async (provider: string) => {

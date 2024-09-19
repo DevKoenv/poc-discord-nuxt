@@ -2,11 +2,11 @@
   <div class="grid md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
     <div class="hidden border-r bg-muted/40 md:block">
       <div
-        class="flex h-full w-[220px] lg:w-[280px] flex-col gap-2 sticky top-0 overflow-hidden"
+        class="sticky top-0 flex h-full w-[220px] flex-col gap-2 overflow-hidden lg:w-[280px]"
       >
         <div class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
           <NuxtLink to="/" class="flex items-center gap-2 font-semibold">
-            <Package2 class="h-6 w-6" />
+            <Package2 class="size-6" />
             <span class="">POC Discord</span>
           </NuxtLink>
         </div>
@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-col h-screen overflow-hidden">
+    <div class="flex h-screen flex-col overflow-hidden">
       <div class="sticky top-0 bg-background">
         <header
           class="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6"
@@ -26,7 +26,7 @@
           <Sheet>
             <SheetTrigger as-child>
               <Button variant="outline" size="icon" class="shrink-0 md:hidden">
-                <Menu class="h-5 w-5" />
+                <Menu class="size-5" />
                 <span class="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
@@ -74,7 +74,7 @@
                     :src="`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`"
                   />
                   <AvatarFallback>
-                    <CircleUser class="h-5 w-5" />
+                    <CircleUser class="size-5" />
                   </AvatarFallback>
                 </Avatar>
                 <span class="sr-only">Toggle user menu</span>
@@ -115,7 +115,7 @@
           </DropdownMenu>
         </header>
       </div>
-      <main class="overflow-auto flex flex-col flex-1">
+      <main class="flex flex-1 flex-col overflow-auto">
         <slot />
       </main>
     </div>
